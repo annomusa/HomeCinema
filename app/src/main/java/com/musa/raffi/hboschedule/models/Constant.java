@@ -1,4 +1,4 @@
-package com.musa.raffi.hboschedule;
+package com.musa.raffi.hboschedule.models;
 
 /**
  * Created by Asus on 8/27/2016.

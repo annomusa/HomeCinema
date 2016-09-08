@@ -1,7 +1,9 @@
 package com.musa.raffi.hboschedule;
 
 import android.app.Fragment;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.content.Context;
+import android.support.design.widget.TabLayout;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -16,8 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.musa.raffi.hboschedule.models.ChannelList;
-
-import java.util.List;
+import com.musa.raffi.hboschedule.schedule.PageFragment;
+import com.musa.raffi.hboschedule.schedule.SampleFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private static final int NUM_PAGES = 5;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-    private List<String> channelList;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +46,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         configViewAdapter();
+
     }
 
     private void configViewAdapter() {
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ChannelSlidePagerAdapter(getFragmentManager());
+        mPagerAdapter = new SampleFragmentPagerAdapter(getFragmentManager(), MainActivity.this, NUM_PAGES);
+
         mPager.setAdapter(mPagerAdapter);
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        mTabLayout.setupWithViewPager(mPager);
+
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
                 String title = ChannelList.getInstance().getChannel(position).getName();
@@ -111,19 +119,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private class ChannelSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ChannelSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return ChannelSlidePageFragment.create(position);
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
-    }
 }
