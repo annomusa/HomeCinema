@@ -6,4 +6,5 @@ package com.musa.raffi.hboschedule.models;
 
 public class Constant {
     public static final String FIREBASE_URL = "https://icebase-bae60.firebaseio.com/";
+    public static final String ROOT_URL = "http://homecinema.pe.hu/api/v1/";
 }
