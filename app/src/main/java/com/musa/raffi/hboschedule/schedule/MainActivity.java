@@ -1,5 +1,7 @@
 package com.musa.raffi.hboschedule.schedule;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -13,32 +15,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.musa.raffi.hboschedule.Application.app;
+import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.ChannelList;
-import com.musa.raffi.hboschedule.models.schedule.ScheduleList;
+import com.musa.raffi.hboschedule.reminder.ReminderActivity;
 import com.musa.raffi.hboschedule.service.RestApi;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     @Inject
     RestApi restApi;
-
-    private SchedulePresenter mPresenter;
 
     private static final int NUM_PAGES = 5;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private TabLayout mTabLayout;
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,15 +50,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ((app) getApplication()).getApiComponent().bind(MainActivity.this);
-
-        Observable<ScheduleList> list = restApi.getScheduleList(ChannelList.getInstance().getChannel(0).getName(),
-                "2016-09-08");
-
-
+        App.getApiComponent(this).inject(this);
 
         configViewAdapter();
-
     }
 
     private void configViewAdapter() {
@@ -80,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
 
     // -------------- Navigation code below
     @Override
@@ -124,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.schedule) {
             // Handle the camera action
         } else if (id == R.id.reminder) {
-
+            Intent intent = new Intent(this, ReminderActivity.class);
+            startActivity(intent);
         } else if (id == R.id.settings) {
 
         }

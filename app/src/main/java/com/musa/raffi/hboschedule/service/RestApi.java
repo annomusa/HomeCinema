@@ -1,9 +1,10 @@
 package com.musa.raffi.hboschedule.service;
 
-import com.musa.raffi.hboschedule.models.schedule.ScheduleList;
+import com.musa.raffi.hboschedule.models.channelPojo.ScheduleList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -14,4 +15,7 @@ public interface RestApi {
     @GET("schedule")
     Observable<ScheduleList> getScheduleList(@Query("daftar_channel") String channelName,
                                              @Query("date_now") String dateReq);
+
+    @GET
+    Observable<ScheduleList> getScheduleListByUrl(@Url String url);
 }

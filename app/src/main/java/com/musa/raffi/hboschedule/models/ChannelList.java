@@ -8,8 +8,8 @@ import java.util.List;
  */
 public class ChannelList {
     private List<Channel> channelList;
-    private static ChannelList ourInstance = new ChannelList();
 
+    private static ChannelList ourInstance = new ChannelList();
     public static ChannelList getInstance() {
         return ourInstance;
     }
@@ -17,13 +17,17 @@ public class ChannelList {
     private ChannelList() {
         channelList = new ArrayList<>();
         channelList.add(new Channel("HBO HD", "0"));
-        channelList.add(new Channel("HBO SIGNATURE", "1"));
-        channelList.add(new Channel("HBO FAMILY", "2"));
-        channelList.add(new Channel("HBO HITS", "3"));
+        channelList.add(new Channel("HBO Sign", "1"));
+        channelList.add(new Channel("HBO Fam", "2"));
+        channelList.add(new Channel("HBO Hits", "3"));
         channelList.add(new Channel("Cinemax", "4"));
     }
 
     public Channel getChannel(int index){
         return channelList.get(index);
+    }
+
+    public List<Channel> getChannelList() {
+        return channelList;
     }
 }

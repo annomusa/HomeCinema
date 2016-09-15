@@ -1,6 +1,6 @@
 package com.musa.raffi.hboschedule.schedule;
 
-import com.musa.raffi.hboschedule.models.schedule.ScheduleList;
+import com.musa.raffi.hboschedule.models.channelPojo.ScheduleList;
 
 import rx.Observable;
 

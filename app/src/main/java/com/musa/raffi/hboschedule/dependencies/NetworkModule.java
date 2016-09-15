@@ -1,5 +1,8 @@
 package com.musa.raffi.hboschedule.dependencies;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,7 +25,10 @@ public class NetworkModule {
     @Provides
     @Singleton
     GsonConverterFactory provideGsonConverterFactory(){
-        return GsonConverterFactory.create();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        return GsonConverterFactory.create(gson);
     }
 
     @Provides
