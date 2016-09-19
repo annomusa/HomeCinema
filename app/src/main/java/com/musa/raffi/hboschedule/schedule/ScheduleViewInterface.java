@@ -1,6 +1,6 @@
 package com.musa.raffi.hboschedule.schedule;
 
-import com.musa.raffi.hboschedule.models.channelPojo.ScheduleList;
+import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
 import rx.Observable;
 
@@ -15,5 +15,5 @@ public interface ScheduleViewInterface {
 
     void onScheduleList(ScheduleList scheduleList);
 
-     Observable<ScheduleList> getSchedule();
+    Observable<ScheduleList> getSchedule();
 }

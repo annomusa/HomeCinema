@@ -1,6 +1,6 @@
 package com.musa.raffi.hboschedule.service;
 
-import com.musa.raffi.hboschedule.models.channelPojo.ScheduleList;
+import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

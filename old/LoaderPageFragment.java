@@ -1,9 +1,9 @@
 package com.musa.raffi.hboschedule.schedule;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.PendingIntent;
-import android.content.Intent;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,8 +24,6 @@ import com.musa.raffi.hboschedule.models.scheduledb.Schedule;
 import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 import com.musa.raffi.hboschedule.service.RestApi;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,13 +41,12 @@ import rx.Observable;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Asus on 9/8/2016.
  */
 
-public class PageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener{
+public class LoaderPageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor>{
     @Bind(R.id.txtDate) TextView txtDate;
     @Bind(R.id.txtAlert) TextView txtAlert;
     @Bind(R.id.list_schedule) ListView listView;
@@ -65,8 +62,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     private String dateReq;
     private ScheduleCursorAdapter scheduleAdapter;
     private String showDate;
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
+    private static final int SCHEDULE_LOADER = 1;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -86,11 +82,10 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         mPageNumber = getArguments().getInt(ARG_PAGE);
         channelReq = SingletonChannelList.getInstance().getChannel(mPageNumber).getName();
         Log.d(TAG, "onCreate: " + channelReq);
-        dateReq = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        dateReq = "2016-09-15";
         dummyList = new ArrayList<>();
 
         dataManager = new DataManager(getActivity().getApplicationContext());
-        alarmManager = (AlarmManager) getActivity().getApplicationContext().getSystemService(ALARM_SERVICE);
     }
 
     @Override
@@ -109,13 +104,8 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         txtDate.setText(showDate);
         txtAlert.setText(getString(R.string.alert));
 
-        final Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        Log.d(TAG, "onCreateView: " + newCursor.getCount());
-        if(newCursor.getCount() == 0) {
-            mPresenter.onResume();
-            mPresenter.fetchSchedules();
-        }
-        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), newCursor);
+        // TODO : call db by using rxjava
+        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), null);
         listView.setAdapter(scheduleAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,25 +117,6 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
                 Log.d(TAG, "onItemClick: " + rowId);
                 dataManager.setScheduleToRemind(rowId);
                 Toast.makeText(getActivity().getApplicationContext(), "Choosen schedule have been saved.", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getActivity(), NotificationReceiver.class);
-                intent.putExtra("title", itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME)));
-                intent.putExtra("text", itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME)));
-                pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0, intent, 0);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                String dateNotif = itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE)) + " " +
-                        itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
-                Log.d(TAG, "onItemClick: " + dateNotif);
-
-                Calendar calendar = Calendar.getInstance();
-                try {
-                    calendar.setTime(sdf.parse(dateNotif));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, "onItemClick: " + sdf.format(calendar.getTime()));
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -168,17 +139,19 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void onResume() {
         super.onResume();
+        getLoaderManager().initLoader(SCHEDULE_LOADER, null, this);
     }
 
     @Override
     public void onCompleted() {
         Log.d(TAG, "onCompleted: !");
+        txtDate.setText(showDate);
     }
 
     @Override
     public void onError(String message) {
         Toast.makeText(getActivity().getApplicationContext(), "Schedule not found, choose another date.", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onError: " + message + " " + channelReq);
+        Log.d(TAG, "onError: " + message);
     }
 
     @Override
@@ -189,6 +162,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         Log.d(TAG, "onScheduleList: " + scheduleList.getChannel());
         for (int i=0; i<scheduleList.getItems().size(); i++){
             int idSchedule = Integer.parseInt(scheduleList.getItems().get(i).getJadwalId());
+            Log.d(TAG, "onScheduleList: " + idSchedule);
             schedule.setId(idSchedule);
             schedule.setFilmName(scheduleList.getItems().get(i).getFilmName());
             schedule.setFilmPlot("null");
@@ -196,9 +170,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
             schedule.setReminder(0);
             dataManager.AddSchedule(schedule);
         }
-        txtDate.setText(showDate);
-        Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        scheduleAdapter.changeCursor(newCursor);
+        getLoaderManager().initLoader(SCHEDULE_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -209,7 +181,8 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear++;
-        dateReq = year + "-" + (monthOfYear<10?("0"+monthOfYear):monthOfYear) + "-" + (dayOfMonth);
+        dateReq = year + "-" + monthOfYear + "-" + (dayOfMonth);
+        getLoaderManager().initLoader(SCHEDULE_LOADER, null, this).forceLoad();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -219,15 +192,50 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        txtDate.setText(showDate);
+    }
 
-        Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        Log.d(TAG, "onDateSet: " + dateReq + " " + channelReq + " " + newCursor.getCount());
-        if (newCursor.getCount() == 0){
-            mPresenter.onResume();
-            mPresenter.fetchSchedules();
-        } else {
-            scheduleAdapter.changeCursor(newCursor);
-            txtDate.setText(showDate);
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch (id){
+            case SCHEDULE_LOADER:
+                return new CursorLoader(getActivity().getApplicationContext()){
+                    @Override
+                    public Cursor loadInBackground() {
+                        return dataManager.getSchedule(channelReq, dateReq);
+                    }
+                };
+            default:
+                throw new UnsupportedOperationException("Unknown loader id: " + id);
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        switch (loader.getId()){
+            case SCHEDULE_LOADER:
+                Log.d(TAG, "onLoadFinished: " + data.getCount());
+                if(data.getCount() == 0){
+                    mPresenter.onResume();
+                    mPresenter.fetchSchedules();
+                } else {
+                    scheduleAdapter.changeCursor(data);
+                    data.close();
+                }
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown loader id: " + loader.getId());
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        switch (loader.getId()){
+            case SCHEDULE_LOADER:
+                scheduleAdapter.changeCursor(null);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown loader id: " + loader.getId());
         }
     }
 }

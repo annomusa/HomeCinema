@@ -38,7 +38,7 @@
             android:parentActivityName=".schedule.MainActivity">
         </activity>
 
-
+        <receiver android:name=".schedule.NotificationReceiver"/>
 
     </application>
 

@@ -1,7 +1,7 @@
 package com.musa.raffi.hboschedule.schedule;
 
 import com.musa.raffi.hboschedule.BasePresenterImpl;
-import com.musa.raffi.hboschedule.models.channelPojo.ScheduleList;
+import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
 import rx.Observer;
 

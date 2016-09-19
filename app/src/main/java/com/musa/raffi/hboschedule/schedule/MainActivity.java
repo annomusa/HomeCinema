@@ -17,7 +17,7 @@ import android.view.MenuItem;
 
 import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
-import com.musa.raffi.hboschedule.models.ChannelList;
+import com.musa.raffi.hboschedule.models.channel.SingletonChannelList;
 import com.musa.raffi.hboschedule.reminder.ReminderActivity;
 import com.musa.raffi.hboschedule.service.RestApi;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void configViewAdapter() {
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new SampleFragmentPagerAdapter(getFragmentManager(), MainActivity.this, NUM_PAGES);
+        mPagerAdapter = new ScheduleFragmentPagerAdapter(getFragmentManager(), MainActivity.this, NUM_PAGES);
 
         mPager.setAdapter(mPagerAdapter);
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                String title = ChannelList.getInstance().getChannel(position).getName();
+                String title = SingletonChannelList.getInstance().getChannel(position).getName();
                 getSupportActionBar().setTitle(title);
                 invalidateOptionsMenu();
             }
