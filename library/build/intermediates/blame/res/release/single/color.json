@@ -1,19 +1,7 @@
 [
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_done_text_color.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\color\\mdtp_done_text_color.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_date_picker_selector.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\color\\mdtp_date_picker_selector.xml"
-    },
-    {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_done_text_color_dark.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\color\\mdtp_done_text_color_dark.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_done_text_color_dark.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\color\\mdtp_done_text_color_dark.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_done_text_color.xml",
@@ -22,10 +10,6 @@
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_date_picker_selector.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\color\\mdtp_date_picker_selector.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_date_picker_year_selector.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\color\\mdtp_date_picker_year_selector.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\color\\mdtp_date_picker_year_selector.xml",

@@ -1,9 +1,6 @@
 package com.musa.raffi.hboschedule.schedule;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,19 +17,14 @@ import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.channel.SingletonChannelList;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
-import com.musa.raffi.hboschedule.models.scheduledb.Schedule;
 import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
+import com.musa.raffi.hboschedule.schedule.adapter.ScheduleCursorAdapter;
 import com.musa.raffi.hboschedule.service.RestApi;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,30 +35,28 @@ import rx.Observable;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Asus on 9/8/2016.
  */
 
-public class PageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener{
+public class PageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener, ScheduleCursorAdapter.ItemClickListener{
     @Bind(R.id.txtDate) TextView txtDate;
     @Bind(R.id.txtAlert) TextView txtAlert;
     @Bind(R.id.list_schedule) ListView listView;
     @Bind(R.id.imageButton) ImageButton imageButton;
     @Inject RestApi restApiInject;
 
-    private int mPageNumber;
-    private List<HashMap<String,String>> dummyList;
-    public static final String ARG_PAGE = "ARG_PAGE";
-    private DataManager dataManager;
+    private DataManager mDataManager;
     private SchedulePresenter mPresenter;
+    private SchedulePresenterDb mPresenterDb;
+
+    int mPageNumber;
     private String channelReq;
     private String dateReq;
     private ScheduleCursorAdapter scheduleAdapter;
     private String showDate;
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
+    public static final String ARG_PAGE = "ARG_PAGE";
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -81,16 +71,17 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         super.onCreate(savedInstanceState);
 
         App.getApiComponent(getActivity()).inject(this);
+        mDataManager = new DataManager(getActivity().getApplicationContext());
+
         mPresenter = new SchedulePresenter(this);
         mPresenter.onCreate();
+        mPresenterDb = new SchedulePresenterDb(this, mDataManager);
+        mPresenterDb.onCreate();
+
         mPageNumber = getArguments().getInt(ARG_PAGE);
         channelReq = SingletonChannelList.getInstance().getChannel(mPageNumber).getName();
-        Log.d(TAG, "onCreate: " + channelReq);
+        Log.d(TAG, "onCreate: PageFragment " + channelReq);
         dateReq = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        dummyList = new ArrayList<>();
-
-        dataManager = new DataManager(getActivity().getApplicationContext());
-        alarmManager = (AlarmManager) getActivity().getApplicationContext().getSystemService(ALARM_SERVICE);
     }
 
     @Override
@@ -98,107 +89,68 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         View rootView = inflater.inflate(R.layout.fragment_screen_slide_page, container, false);
         ButterKnife.bind(this, rootView);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date d = sdf.parse(dateReq);
-            sdf.applyPattern("EEE, d MMM yyyy");
-            showDate = sdf.format(d);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        showDate = generalizeDateToShow(dateReq);
         txtDate.setText(showDate);
         txtAlert.setText(getString(R.string.alert));
 
-        final Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        Log.d(TAG, "onCreateView: " + newCursor.getCount());
-        if(newCursor.getCount() == 0) {
-            mPresenter.onResume();
-            mPresenter.fetchSchedules();
-        }
-        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), newCursor);
+        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), null, this);
         listView.setAdapter(scheduleAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor itemCursor = ((ScheduleCursorAdapter) parent.getAdapter()).getCursor();
-                int a = itemCursor.getColumnIndex(DataManager.TABLE_ROW_ID);
-                int rowId = itemCursor.getInt(a);
-                Log.d(TAG, "onItemClick: " + rowId);
-                dataManager.setScheduleToRemind(rowId);
-                Toast.makeText(getActivity().getApplicationContext(), "Choosen schedule have been saved.", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getActivity(), NotificationReceiver.class);
-                intent.putExtra("title", itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME)));
-                intent.putExtra("text", itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME)));
-                pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0, intent, 0);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                String dateNotif = itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE)) + " " +
-                        itemCursor.getString(itemCursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
-                Log.d(TAG, "onItemClick: " + dateNotif);
-
-                Calendar calendar = Calendar.getInstance();
-                try {
-                    calendar.setTime(sdf.parse(dateNotif));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, "onItemClick: " + sdf.format(calendar.getTime()));
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-        });
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(
-                        PageFragment.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.vibrate(false);
-                dpd.show(getFragmentManager(), "Datepickerdialog");
-            }
-        });
+        configSetOnClick();
         return rootView;
+    }
+
+    private void configSetOnClick(){
+        imageButton.setOnClickListener(v -> {
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog dpd = DatePickerDialog.newInstance(
+                    PageFragment.this,
+                    now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH),
+                    now.get(Calendar.DAY_OF_MONTH)
+            );
+            dpd.vibrate(false);
+            dpd.show(getFragmentManager(), "Datepickerdialog");
+        });
+    }
+
+    public static String generalizeDateToShow(String date){
+        String res = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date d = sdf.parse(date);
+            sdf.applyPattern("EEE, d MMM yyyy");
+            res = sdf.format(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mPresenterDb.onResume();
+        mPresenterDb.fetchSchedulesDb();
     }
 
     @Override
-    public void onCompleted() {
-        Log.d(TAG, "onCompleted: !");
+    public void jsonCompleted() {
+        Log.d(TAG, "jsonCompleted: Retrieve json completed!");
+        mPresenterDb.onResume();
+        mPresenterDb.fetchSchedulesDb();
     }
 
     @Override
-    public void onError(String message) {
+    public void jsonError(String message) {
         Toast.makeText(getActivity().getApplicationContext(), "Schedule not found, choose another date.", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onError: " + message + " " + channelReq);
+        Log.d(TAG, "jsonError: " + message + " " + channelReq);
     }
 
     @Override
-    public void onScheduleList(ScheduleList scheduleList) {
-        Schedule schedule = new Schedule();
-        schedule.setChannel(scheduleList.getChannel());
-        schedule.setDate(dateReq);
-        Log.d(TAG, "onScheduleList: " + scheduleList.getChannel());
-        for (int i=0; i<scheduleList.getItems().size(); i++){
-            int idSchedule = Integer.parseInt(scheduleList.getItems().get(i).getJadwalId());
-            schedule.setId(idSchedule);
-            schedule.setFilmName(scheduleList.getItems().get(i).getFilmName());
-            schedule.setFilmPlot("null");
-            schedule.setShowTime(scheduleList.getItems().get(i).getShowTime());
-            schedule.setReminder(0);
-            dataManager.AddSchedule(schedule);
-        }
-        txtDate.setText(showDate);
-        Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        scheduleAdapter.changeCursor(newCursor);
+    public void jsonScheduleList(ScheduleList scheduleList) {
+        Log.d(TAG, "jsonScheduleList: json fetching");
+        mPresenterDb.addSchedulesToDb(scheduleList);
     }
 
     @Override
@@ -207,27 +159,46 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        monthOfYear++;
-        dateReq = year + "-" + (monthOfYear<10?("0"+monthOfYear):monthOfYear) + "-" + (dayOfMonth);
+    public void dbCompleted() {
+        Log.d(TAG, "dbCompleted: Retrieve from db completed!");
+    }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date d = sdf.parse(dateReq);
-            sdf.applyPattern("EEE, d MMM yyyy");
-            showDate = sdf.format(d);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void dbError(String message) {
+        Log.d(TAG, "dbError: " + message);
+    }
 
-        Cursor newCursor = dataManager.getSchedule(channelReq, dateReq);
-        Log.d(TAG, "onDateSet: " + dateReq + " " + channelReq + " " + newCursor.getCount());
-        if (newCursor.getCount() == 0){
+    @Override
+    public void dbScheduleList(Cursor cursor) {
+        if(cursor.getCount() == 0){
+            Log.d(TAG, "dbScheduleList: db null");
             mPresenter.onResume();
             mPresenter.fetchSchedules();
         } else {
-            scheduleAdapter.changeCursor(newCursor);
+            Log.d(TAG, "dbScheduleList: db not null");
+            scheduleAdapter.changeCursor(cursor);
             txtDate.setText(showDate);
         }
+    }
+
+    @Override
+    public Observable<Cursor> getCursor() {
+        return mDataManager.getScheduleRx(channelReq, dateReq);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        monthOfYear++;
+        dateReq = year + "-" + (monthOfYear<10?("0"+monthOfYear):monthOfYear) + "-" + (dayOfMonth);
+        showDate = generalizeDateToShow(dateReq);
+
+        mPresenterDb.onResume();
+        mPresenterDb.fetchSchedulesDb();
+    }
+
+    @Override
+    public void onClick(int idSchedule) {
+        mPresenterDb.setScheduleToRemind(idSchedule);
+        Toast.makeText(getActivity().getApplicationContext(), "Choosen schedule have been saved.", Toast.LENGTH_SHORT).show();
     }
 }

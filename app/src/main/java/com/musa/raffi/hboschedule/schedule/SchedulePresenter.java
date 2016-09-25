@@ -10,29 +10,29 @@ import rx.Observer;
  */
 
 public class SchedulePresenter extends BasePresenterImpl implements Observer<ScheduleList> {
-    private ScheduleViewInterface mScheduleInterface;
+    private ScheduleViewInterface mInterface;
 
     public SchedulePresenter(ScheduleViewInterface viewInterface){
-        mScheduleInterface = viewInterface;
+        mInterface = viewInterface;
     }
 
     @Override
     public void onCompleted() {
-        mScheduleInterface.onCompleted();
+        mInterface.jsonCompleted();
     }
 
     @Override
     public void onError(Throwable e) {
-        mScheduleInterface.onError(e.getMessage());
+        mInterface.jsonError(e.getMessage());
     }
 
     @Override
     public void onNext(ScheduleList scheduleList) {
-        mScheduleInterface.onScheduleList(scheduleList);
+        mInterface.jsonScheduleList(scheduleList);
     }
 
     public void fetchSchedules(){
         unSubscribeAll();
-        subscribe(mScheduleInterface.getSchedule(), SchedulePresenter.this);
+        subscribe(mInterface.getSchedule(), SchedulePresenter.this);
     }
 }

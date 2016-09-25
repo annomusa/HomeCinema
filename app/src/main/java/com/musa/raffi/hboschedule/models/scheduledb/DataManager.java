@@ -10,6 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import rx.Observable;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -67,7 +69,7 @@ public class DataManager {
         return c;
     }
 
-    public Cursor getScheduleRemind(String date, String time) throws ParseException {
+    public Cursor getScheduleRemind(String date, String time) {
 //        Calendar calendar = Calendar.getInstance();
 //        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 //        calendar.setTime(sdf.parse(time));
@@ -96,6 +98,26 @@ public class DataManager {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         return c;
+    }
+
+    public Observable<Cursor> getScheduleRemindRx(String date, String time) {
+        String query = "select * from " + TABLE_SCHEDULE +
+                " where " + TABLE_ROW_REMINDER + " = 1 and " + TABLE_ROW_DATE + " >= '" + date + "' and " + TABLE_ROW_SHOW_TIME + " >= '" + time + "' " +
+                "order by " + TABLE_ROW_DATE + ", " + TABLE_ROW_SHOW_TIME;
+        Log.d(TAG, "getScheduleRemind: " + query);
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        return Observable.just(c);
+    }
+
+    public Observable<Cursor> getScheduleRx(String channel, String date){
+        String query = "select * from " + TABLE_SCHEDULE + " where " + TABLE_ROW_CHANNEL + " = '" + channel + "' and " + TABLE_ROW_DATE + " = '" + date + "';";
+        Log.d(TAG, "getSchedule DM Rx: " + query);
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        Log.d(TAG, "getScheduleRx: count cursor DM Rx " + c.getCount());
+        return Observable.just(c);
     }
 
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper{

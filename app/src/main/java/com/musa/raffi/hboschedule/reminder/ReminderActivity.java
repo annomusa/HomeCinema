@@ -1,34 +1,31 @@
 package com.musa.raffi.hboschedule.reminder;
 
 import android.database.Cursor;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.musa.raffi.hboschedule.R;
-import com.musa.raffi.hboschedule.models.channel.Channel;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
+import com.musa.raffi.hboschedule.reminder.adapter.ItemAdapter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
 
-public class ReminderActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+import static android.content.ContentValues.TAG;
+
+public class ReminderActivity extends AppCompatActivity implements ReminderViewInterface, ItemAdapter.ReminderClickListener{
     private DataManager dataManager;
-    private Cursor mCursor;
+    private ReminderPresenter mPresenter;
     private ItemAdapter mAdapter;
-    private static final int REMINDER_LOADER = 0;
     Calendar calendar;
     String dateNow, timeNow;
 
@@ -40,67 +37,59 @@ public class ReminderActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.activity_reminder);
         getSupportActionBar().setTitle("Your Schedule Reminder");
         ButterKnife.bind(this);
+        dataManager = new DataManager(ReminderActivity.this);
+        mPresenter = new ReminderPresenter(this, dataManager);
 
         calendar = Calendar.getInstance();
         dateNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        timeNow = new SimpleDateFormat("kk:mm:ss").format(new Date());
+        timeNow = new SimpleDateFormat("HH:mm:ss").format(new Date());
 
+        configView();
+
+        Log.d(TAG, "onCreate: ReminderActivity");
+    }
+
+    private void configView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        dataManager = new DataManager(ReminderActivity.this);
-
         mAdapter = new ItemAdapter(this);
         recyclerView.setAdapter(mAdapter);
-//        Toast.makeText(this,"Reminder oncreate",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getLoaderManager().initLoader(REMINDER_LOADER, null, this);
+        mPresenter.onResume();
+        mPresenter.fetchReminder();
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch (id){
-            case REMINDER_LOADER:
-                return new CursorLoader(this){
-                    @Override
-                    public Cursor loadInBackground() {
-                        try {
-                            return dataManager.getScheduleRemind(dateNow, timeNow);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                };
-            default:
-                throw new UnsupportedOperationException("Unknown loader id: " + id);
-        }
+    public void onCompleted() {
+        Toast.makeText(this, "Load reminder successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        switch (loader.getId()){
-            case REMINDER_LOADER:
-                mAdapter.swapCursor(data);
-                break;
-            default:
-                throw new UnsupportedOperationException("Unknown loader id: " + loader.getId());
-        }
+    public void onError(String message) {
+        Log.d(TAG, "jsonError: " + message);
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        switch (loader.getId()){
-            case REMINDER_LOADER:
-                mAdapter.swapCursor(null);
-                break;
-            default:
-                throw new UnsupportedOperationException("Unknown loader id: " + loader.getId());
-        }
+    public void onReminder(Cursor cursor) {
+        if(cursor.getCount() == 0) Log.d(TAG, "onReminder: null");
+        mAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public Observable<Cursor> getReminder() {
+        return dataManager.getScheduleRemindRx(dateNow, timeNow);
+    }
+
+    @Override
+    public void onClick(int idSchedule) {
+        Toast.makeText(this, "You choose " + idSchedule, Toast.LENGTH_SHORT).show();
+        mPresenter.unSetSchedule(idSchedule);
+        mPresenter.fetchReminder();
+        mAdapter.notifyDataSetChanged();
     }
 }

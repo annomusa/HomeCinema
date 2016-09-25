@@ -6,13 +6,5 @@
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout-land\\mdtp_date_picker_dialog.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout-land\\mdtp_date_picker_dialog.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\layout-land\\mdtp_date_picker_dialog.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\layout-land\\mdtp_date_picker_dialog.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\layout-land\\mdtp_time_picker_dialog.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\layout-land\\mdtp_time_picker_dialog.xml"
     }
 ]

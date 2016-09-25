@@ -1,6 +1,7 @@
 package com.musa.raffi.hboschedule.schedule;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,14 +21,13 @@ import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.channel.SingletonChannelList;
 import com.musa.raffi.hboschedule.reminder.ReminderActivity;
+import com.musa.raffi.hboschedule.schedule.adapter.ScheduleFragmentPagerAdapter;
 import com.musa.raffi.hboschedule.service.RestApi;
 
 import javax.inject.Inject;
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    @Inject
-    RestApi restApi;
-
     private static final int NUM_PAGES = 5;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d(TAG, "onCreate: MainActivity");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        App.getApiComponent(this).inject(this);
 
         configViewAdapter();
     }
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    // -------------- Navigation code below
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,13 +108,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.schedule) {
-            // Handle the camera action
+
         } else if (id == R.id.reminder) {
             Intent intent = new Intent(this, ReminderActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.settings) {
 
@@ -126,5 +124,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

@@ -1,15 +1,7 @@
 [
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color_dark.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\drawable\\mdtp_done_background_color_dark.xml"
-    },
-    {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\drawable\\mdtp_done_background_color.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\drawable\\mdtp_done_background_color.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_selected.xml",
@@ -18,14 +10,6 @@
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_background.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\drawable\\mdtp_material_button_background.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_background.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\drawable\\mdtp_material_button_background.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_selected.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\MaterialDateTimePicker-master\\library\\src\\main\\res\\drawable\\mdtp_material_button_selected.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color_dark.xml",

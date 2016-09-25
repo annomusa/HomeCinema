@@ -1,5 +1,7 @@
 package com.musa.raffi.hboschedule.schedule;
 
+import android.database.Cursor;
+
 import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
 import rx.Observable;
@@ -9,11 +11,19 @@ import rx.Observable;
  */
 
 public interface ScheduleViewInterface {
-    void onCompleted();
+    void jsonCompleted();
 
-    void onError(String message);
+    void jsonError(String message);
 
-    void onScheduleList(ScheduleList scheduleList);
+    void jsonScheduleList(ScheduleList scheduleList);
 
     Observable<ScheduleList> getSchedule();
+
+    void dbCompleted();
+
+    void dbError(String message);
+
+    void dbScheduleList(Cursor cursor);
+
+    Observable<Cursor> getCursor();
 }
