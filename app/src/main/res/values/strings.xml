@@ -1,8 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Film Schedule</string>
+    <string name="app_name">Film Schedule Monitoring</string>
 
-    <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g>: Lorem
-        Ipsum</string>
+    <string name="developer">Fire House</string>
 
     <!-- Titles -->
     <string name="title_screen_slide">Screen Slide</string>
@@ -23,5 +22,7 @@
 
     <!-- Other Strings-->
     <string name="alert">schedule may change without notice</string>
+    <string name="no_reminder">Tap on schedule to add reminder list</string>
+    <string name="no_schedule">Schedule on chosen date\nis not available yet.\nOr you are not connected to internet.</string>
 
 </resources>

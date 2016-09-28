@@ -18,13 +18,13 @@ import static android.content.ContentValues.TAG;
  * Created by Asus on 9/13/2016.
  */
 
-public class ScheduleCursorAdapter extends CursorAdapter implements View.OnClickListener{
-    ItemClickListener mListener;
+public class ScheduleCursorAdapter extends CursorAdapter{
     int mIdSchedule;
+    String time;
+    String title;
 
-    public ScheduleCursorAdapter(Context context, Cursor c, ItemClickListener listener) {
+    public ScheduleCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
-        mListener = listener;
     }
 
     @Override
@@ -37,24 +37,11 @@ public class ScheduleCursorAdapter extends CursorAdapter implements View.OnClick
         TextView txtTime = (TextView) view.findViewById(R.id.txtTime);
         TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
 
-        String time = cursor.getString(cursor.getColumnIndexOrThrow
-                (DataManager.TABLE_ROW_SHOW_TIME));
-        String title = cursor.getString(cursor.getColumnIndexOrThrow
-                (DataManager.TABLE_ROW_FILM_NAME));
+        time = cursor.getString(cursor.getColumnIndexOrThrow (DataManager.TABLE_ROW_SHOW_TIME));
+        title = cursor.getString(cursor.getColumnIndexOrThrow (DataManager.TABLE_ROW_FILM_NAME));
+        mIdSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
 
         txtTime.setText(time);
         txtTitle.setText(title);
-        mIdSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
-
-        view.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        mListener.onClick(mIdSchedule);
-    }
-
-    public interface ItemClickListener{
-        void onClick(int idSchedule);
     }
 }

@@ -17,4 +17,16 @@
         android:scrollbars="vertical"
         />
 
+    <TextView android:id="@+id/empty"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center"
+        android:padding="32dp"
+        android:text="@string/no_reminder"
+        android:textColor="?android:textColorSecondary"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp" />
+
 </RelativeLayout>

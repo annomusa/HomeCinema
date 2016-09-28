@@ -47,6 +47,8 @@ public class ItemAdapter extends RecyclerViewCursorAdapter<ItemAdapter.ItemViewH
         @Bind(R.id.film_name) TextView mFilm;
         @Bind(R.id.channel) TextView mChannel;
         int idSchedule;
+        String film;
+        String channel;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -58,8 +60,8 @@ public class ItemAdapter extends RecyclerViewCursorAdapter<ItemAdapter.ItemViewH
         public void bindCursor(Cursor cursor) {
             String dateReq = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE));
             String time = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME)).substring(0,5) + " WIB, ";
-            String channel = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_CHANNEL));
-            String film = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME));
+            channel = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_CHANNEL));
+            film = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME));
             idSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
 
             dateReq = PageFragment.generalizeDateToShow(dateReq);
@@ -71,11 +73,11 @@ public class ItemAdapter extends RecyclerViewCursorAdapter<ItemAdapter.ItemViewH
 
         @Override
         public void onClick(View v) {
-            mListener.onClick(idSchedule);
+            mListener.onClick(idSchedule, film, channel);
         }
     }
 
     public interface ReminderClickListener{
-        void onClick(int idSchedule);
+        void onClick(int idSchedule, String film, String channel);
     }
 }

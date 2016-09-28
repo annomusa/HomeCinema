@@ -1,11 +1,15 @@
 package com.musa.raffi.hboschedule.reminder;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.musa.raffi.hboschedule.R;
@@ -29,7 +33,10 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     Calendar calendar;
     String dateNow, timeNow;
 
-    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Bind(R.id.empty)
+    TextView empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +73,20 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
 
     @Override
     public void onCompleted() {
-        Toast.makeText(this, "Load reminder successfully", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onError(String message) {
-        Log.d(TAG, "jsonError: " + message);
+        Log.d(TAG, "dbError: " + message);
     }
 
     @Override
     public void onReminder(Cursor cursor) {
-        if(cursor.getCount() == 0) Log.d(TAG, "onReminder: null");
+        if(cursor.getCount() == 0) {
+            Log.d(TAG, "onReminder: null");
+            empty.setVisibility(View.VISIBLE);
+        } else empty.setVisibility(View.GONE);
         mAdapter.swapCursor(cursor);
     }
 
@@ -86,10 +96,25 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     }
 
     @Override
-    public void onClick(int idSchedule) {
-        Toast.makeText(this, "You choose " + idSchedule, Toast.LENGTH_SHORT).show();
-        mPresenter.unSetSchedule(idSchedule);
-        mPresenter.fetchReminder();
-        mAdapter.notifyDataSetChanged();
+    public void onClick(int idSchedule, String film, String channel) {
+        showDialog(idSchedule, film, channel);
+    }
+
+    private void showDialog(int idSchedule, String film, String channel) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(Html.fromHtml("Do you want to delete " + "<b>" + film + "</b> on " + channel + " from reminder list?"));
+
+        alertDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
+            mPresenter.unSetSchedule(idSchedule);
+            mPresenter.unSetSchedule(idSchedule);
+            mPresenter.fetchReminder();
+            mAdapter.notifyDataSetChanged();
+        });
+
+        alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
+
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

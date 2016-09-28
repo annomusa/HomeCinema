@@ -44,6 +44,10 @@ public class SchedulePresenterDb extends BasePresenterImpl implements Observer<C
         mDataManager.setScheduleToRemind(id);
     }
 
+    void unsetScheduleToRemind(int id) {
+        mDataManager.unsetScheduleToRemind(id);
+    }
+
     void fetchSchedulesDb(){
         unSubscribeAll();
         subscribe(mInterface.getCursor(), SchedulePresenterDb.this);

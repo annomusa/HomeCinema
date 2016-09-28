@@ -5,9 +5,10 @@
     <!--android:layout_height="match_parent">-->
 
     <!-- Dummy content. -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:id="@+id/relative_layout"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
@@ -17,7 +18,8 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:id="@+id/container_date">
 
             <TextView
                 android:text="Wed, 7th Sept 2016"
@@ -42,14 +44,31 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtAlert"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/container_date"
+            />
 
-        <ListView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/list_schedule"
-            android:scrollbars="none" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txtAlert">
 
-</LinearLayout>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/list_schedule"
+                android:scrollbars="none"/>
+
+            <TextView android:id="@+id/empty_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="32dp"
+                android:text="@string/no_schedule"
+                android:textColor="?android:textColorSecondary" />
+        </FrameLayout>
+
+</RelativeLayout>
 
 <!--</ScrollView>-->

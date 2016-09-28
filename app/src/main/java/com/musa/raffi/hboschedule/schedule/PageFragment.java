@@ -1,17 +1,21 @@
 package com.musa.raffi.hboschedule.schedule;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
@@ -40,23 +44,27 @@ import static android.content.ContentValues.TAG;
  * Created by Asus on 9/8/2016.
  */
 
-public class PageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener, ScheduleCursorAdapter.ItemClickListener{
+public class PageFragment extends Fragment implements ScheduleViewInterface, DatePickerDialog.OnDateSetListener{
     @Bind(R.id.txtDate) TextView txtDate;
     @Bind(R.id.txtAlert) TextView txtAlert;
     @Bind(R.id.list_schedule) ListView listView;
     @Bind(R.id.imageButton) ImageButton imageButton;
+    @Bind(R.id.empty_schedule) TextView emptySchedule;
+    @Bind(R.id.relative_layout) RelativeLayout rl;
     @Inject RestApi restApiInject;
 
     private DataManager mDataManager;
-    private SchedulePresenter mPresenter;
+    private SchedulePresenter mPresenterJson;
     private SchedulePresenterDb mPresenterDb;
+    private ProgressDialog mProgress;
 
     int mPageNumber;
-    private String channelReq;
-    private String dateReq;
+    private String mChannelReq;
+    private String mDateReq;
     private ScheduleCursorAdapter scheduleAdapter;
-    private String showDate;
+    private String mShowDate;
     public static final String ARG_PAGE = "ARG_PAGE";
+    View.OnClickListener mOnClickListener;
 
     public static PageFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -73,15 +81,16 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         App.getApiComponent(getActivity()).inject(this);
         mDataManager = new DataManager(getActivity().getApplicationContext());
 
-        mPresenter = new SchedulePresenter(this);
-        mPresenter.onCreate();
+        mPresenterJson = new SchedulePresenter(this);
+        mPresenterJson.onCreate();
         mPresenterDb = new SchedulePresenterDb(this, mDataManager);
         mPresenterDb.onCreate();
 
         mPageNumber = getArguments().getInt(ARG_PAGE);
-        channelReq = SingletonChannelList.getInstance().getChannel(mPageNumber).getName();
-        Log.d(TAG, "onCreate: PageFragment " + channelReq);
-        dateReq = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        mChannelReq = SingletonChannelList.getInstance().getChannel(mPageNumber).getName();
+        Log.d(TAG, "onCreate: PageFragment " + mChannelReq);
+        mDateReq = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        mProgress = new ProgressDialog(getActivity());
     }
 
     @Override
@@ -89,18 +98,27 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         View rootView = inflater.inflate(R.layout.fragment_screen_slide_page, container, false);
         ButterKnife.bind(this, rootView);
 
-        showDate = generalizeDateToShow(dateReq);
-        txtDate.setText(showDate);
+        mShowDate = generalizeDateToShow(mDateReq);
+        txtDate.setText(mShowDate);
         txtAlert.setText(getString(R.string.alert));
 
-        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), null, this);
+        scheduleAdapter = new ScheduleCursorAdapter(getActivity().getApplicationContext(), null);
         listView.setAdapter(scheduleAdapter);
+        emptySchedule.setVisibility(View.GONE);
 
         configSetOnClick();
         return rootView;
     }
 
     private void configSetOnClick(){
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Cursor itemCursor = ((ScheduleCursorAdapter) parent.getAdapter()).getCursor();
+            int idSchedule = itemCursor.getInt(itemCursor.getColumnIndex(DataManager.TABLE_ROW_ID));
+            String title = itemCursor.getString(itemCursor.getColumnIndex(DataManager.TABLE_ROW_FILM_NAME));
+            String time = itemCursor.getString(itemCursor.getColumnIndex(DataManager.TABLE_ROW_SHOW_TIME)).substring(0,5) + " WIB";
+            showDialog(idSchedule, title, time);
+        });
+
         imageButton.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance(
@@ -112,6 +130,33 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
             dpd.vibrate(false);
             dpd.show(getFragmentManager(), "Datepickerdialog");
         });
+    }
+
+    private void showDialog(int idSchedule, String title, String time) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage(Html.fromHtml("Do you want to add " + "<b>" + title + "</b> on " + time + "?"));
+
+        alertDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
+            mPresenterDb.setScheduleToRemind(idSchedule);
+            Snackbar snackbar = Snackbar.make(rl, "Schedule added to reminder list", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo", mOnClickListener);
+            snackbar.setActionTextColor(Color.RED);
+            View snackBarView = snackbar.getView();
+            snackBarView.setBackgroundColor(Color.DKGRAY);
+            TextView snackText = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            snackText.setTextColor(Color.YELLOW);
+            snackbar.show();
+        });
+
+        mOnClickListener = v -> {
+            mPresenterDb.unsetScheduleToRemind(idSchedule);
+        };
+
+        alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
+
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public static String generalizeDateToShow(String date){
@@ -130,6 +175,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void onResume() {
         super.onResume();
+        mProgress = ProgressDialog.show(getActivity(), "Search", "Searching...", true, false);
         mPresenterDb.onResume();
         mPresenterDb.fetchSchedulesDb();
     }
@@ -143,8 +189,10 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
 
     @Override
     public void jsonError(String message) {
-        Toast.makeText(getActivity().getApplicationContext(), "Schedule not found, choose another date.", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "jsonError: " + message + " " + channelReq);
+        Log.d(TAG, "jsonError: " + message + " " + mChannelReq);
+        scheduleAdapter.changeCursor(null);
+        emptySchedule.setVisibility(View.VISIBLE);
+        mProgress.dismiss();
     }
 
     @Override
@@ -155,7 +203,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
 
     @Override
     public Observable<ScheduleList> getSchedule() {
-        return restApiInject.getScheduleListByUrl("http://homecinema.pe.hu/api/v1/schedule?channel=" + channelReq + "&date_now=" + dateReq);
+        return restApiInject.getScheduleListByUrl("http://homecinema.pe.hu/api/v1/schedule?channel=" + mChannelReq + "&date_now=" + mDateReq);
     }
 
     @Override
@@ -166,39 +214,38 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void dbError(String message) {
         Log.d(TAG, "dbError: " + message);
+        mProgress.dismiss();
+        scheduleAdapter.changeCursor(null);
+        emptySchedule.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void dbScheduleList(Cursor cursor) {
         if(cursor.getCount() == 0){
             Log.d(TAG, "dbScheduleList: db null");
-            mPresenter.onResume();
-            mPresenter.fetchSchedules();
+            mPresenterJson.onResume();
+            mPresenterJson.fetchSchedules();
         } else {
             Log.d(TAG, "dbScheduleList: db not null");
             scheduleAdapter.changeCursor(cursor);
-            txtDate.setText(showDate);
+            emptySchedule.setVisibility(View.GONE);
+            mProgress.dismiss();
         }
     }
 
     @Override
     public Observable<Cursor> getCursor() {
-        return mDataManager.getScheduleRx(channelReq, dateReq);
+        return mDataManager.getScheduleRx(mChannelReq, mDateReq);
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear++;
-        dateReq = year + "-" + (monthOfYear<10?("0"+monthOfYear):monthOfYear) + "-" + (dayOfMonth);
-        showDate = generalizeDateToShow(dateReq);
-
+        mDateReq = year + "-" + (monthOfYear<10?("0"+monthOfYear):monthOfYear) + "-" + (dayOfMonth);
+        mShowDate = generalizeDateToShow(mDateReq);
+        txtDate.setText(mShowDate);
+        mProgress = ProgressDialog.show(getActivity(), "Search", "Searching...", true, false);
         mPresenterDb.onResume();
         mPresenterDb.fetchSchedulesDb();
-    }
-
-    @Override
-    public void onClick(int idSchedule) {
-        mPresenterDb.setScheduleToRemind(idSchedule);
-        Toast.makeText(getActivity().getApplicationContext(), "Choosen schedule have been saved.", Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,6 +3,7 @@ package com.musa.raffi.hboschedule.schedule;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -25,30 +26,36 @@ import com.musa.raffi.hboschedule.schedule.adapter.ScheduleFragmentPagerAdapter;
 import com.musa.raffi.hboschedule.service.RestApi;
 
 import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int NUM_PAGES = 5;
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-    private TabLayout mTabLayout;
-    private ProgressDialog mDialog;
+    PagerAdapter mPagerAdapter;
+
+    @Bind(R.id.nav_view) NavigationView navigationView;
+    @Bind(R.id.drawer_layout) DrawerLayout drawer;
+    @Bind(R.id.pager) ViewPager mPager;
+    @Bind(R.id.sliding_tabs) TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: MainActivity");
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         configViewAdapter();
@@ -57,10 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void configViewAdapter() {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScheduleFragmentPagerAdapter(getFragmentManager(), MainActivity.this, NUM_PAGES);
-
         mPager.setAdapter(mPagerAdapter);
-
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mPager);
 
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
@@ -75,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -107,20 +110,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.schedule) {
-
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.reminder) {
             Intent intent = new Intent(this, ReminderActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.settings) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

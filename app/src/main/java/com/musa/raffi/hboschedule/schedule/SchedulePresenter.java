@@ -35,4 +35,6 @@ public class SchedulePresenter extends BasePresenterImpl implements Observer<Sch
         unSubscribeAll();
         subscribe(mInterface.getSchedule(), SchedulePresenter.this);
     }
+
+
 }
