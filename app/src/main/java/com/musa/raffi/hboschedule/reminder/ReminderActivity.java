@@ -1,6 +1,10 @@
 package com.musa.raffi.hboschedule.reminder;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 import com.musa.raffi.hboschedule.notification.NewNotificationReceiver;
+import com.musa.raffi.hboschedule.notification.NotificationReceiver;
 import com.musa.raffi.hboschedule.reminder.adapter.ItemAdapter;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +36,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     private DataManager dataManager;
     private ReminderPresenter mPresenter;
     private ItemAdapter mAdapter;
-    private NewNotificationReceiver mNotif;
     Calendar calendar;
     String dateNow, timeNow;
 
@@ -48,7 +52,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
         ButterKnife.bind(this);
         dataManager = new DataManager(ReminderActivity.this);
         mPresenter = new ReminderPresenter(this, dataManager);
-        mNotif = new NewNotificationReceiver();
 
         calendar = Calendar.getInstance();
         dateNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -112,7 +115,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
             mPresenter.unSetSchedule(idSchedule);
             mPresenter.fetchReminder();
             mAdapter.notifyDataSetChanged();
-            mNotif.cancelNotification(this, idSchedule);
+            cancelAlarm(idSchedule);
         });
 
         alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
@@ -120,5 +123,13 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void cancelAlarm(int idSchedule){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        Log.d(TAG, "cancelAlarm: " + idSchedule);
+        PendingIntent cancelIntent = PendingIntent.getBroadcast(this, idSchedule, intent, 0);
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.cancel(cancelIntent);
     }
 }

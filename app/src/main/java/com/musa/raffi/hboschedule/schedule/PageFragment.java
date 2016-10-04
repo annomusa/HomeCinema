@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -62,7 +63,6 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
 
     private SchedulePresenter mPresenterJson;
     private SchedulePresenterDb mPresenterDb;
-    private NewNotificationReceiver mNotif;
     private ProgressDialog mProgress;
 
     int mPageNumber;
@@ -89,7 +89,6 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         App.getApiComponent(getActivity()).inject(this);
         DataManager mDataManager = new DataManager(getActivity().getApplicationContext());
 
-        mNotif = new NewNotificationReceiver();
         mPresenterJson = new SchedulePresenter(this);
         mPresenterJson.onCreate();
         mPresenterDb = new SchedulePresenterDb(this, mDataManager);
@@ -117,6 +116,13 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
 
         configSetOnClick();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mProgress = ProgressDialog.show(getActivity(), "Search", "Searching...", true, false);
+        retrieveList();
     }
 
     private void configSetOnClick(){
@@ -153,11 +159,14 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
             mPresenterDb.setScheduleToRemind(idSchedule);
             showSnackBar();
             setAlarm(idSchedule, title, time, channel, calendar);
-//            mNotif.setNotification(getActivity().getApplicationContext(), idSchedule, title, time, channel, calendar);
         });
 
         mOnClickListener = v -> {
             mPresenterDb.unsetScheduleToRemind(idSchedule);
+            Intent intent = new Intent(getActivity().getApplicationContext(), NotificationReceiver.class);
+            PendingIntent cancelIntent = PendingIntent.getBroadcast(getActivity(), idSchedule, intent, 0);
+            AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            alarmMgr.cancel(cancelIntent);
         };
 
         alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
@@ -168,16 +177,12 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     }
 
     private void setAlarm(int idSchedule, String title, String time, String channel, Calendar calendar){
-        Log.d(TAG, "setAlarm: " + calendar);
-
         Intent notifIntent = new Intent(getActivity().getApplicationContext(), NotificationReceiver.class);
         notifIntent.putExtra("title", title);
         notifIntent.putExtra("time", time);
         notifIntent.putExtra("channel", channel);
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), idSchedule, notifIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(getActivity().getApplicationContext().ALARM_SERVICE);
-
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
     }
 
@@ -203,13 +208,6 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
             e.printStackTrace();
         }
         return res;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mProgress = ProgressDialog.show(getActivity(), "Search", "Searching...", true, false);
-        retrieveList();
     }
 
     @Override

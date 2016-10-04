@@ -21,25 +21,10 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notifIntent = new Intent(context, NotificationService.class);
-        notifIntent.putExtra("title", intent.getStringExtra("title"));
-        notifIntent.putExtra("time", intent.getStringExtra("time"));
-        notifIntent.putExtra("channel", intent.getStringExtra("channel"));
-        context.startService(notifIntent);
-//        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intents, 0);
-//
-//        String title = intent.getStringExtra("title");
-//        String text = intent.getStringExtra("text");
-//        String channel = intent.getStringExtra("channel");
-//
-//        Notification notification = new Notification.Builder(context)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle(channel + " " + text + " Now Playing")
-//                .setContentText(title)
-//                .setContentIntent(pendingIntent)
-//                .build();
-//
-//        notificationManager.notify(0,notification);
+        Intent notifService = new Intent(context, NotificationService.class);
+        notifService.putExtra("title", intent.getStringExtra("title"));
+        notifService.putExtra("time", intent.getStringExtra("time"));
+        notifService.putExtra("channel", intent.getStringExtra("channel"));
+        context.startService(notifService);
     }
 }

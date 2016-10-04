@@ -21,8 +21,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Other Strings-->
-    <string name="alert">Schedule may change without notice.\nTap to make an action.</string>
+    <string name="alert">Schedule may change without notice.\nTap item to make an action.</string>
     <string name="no_reminder">Tap on schedule to add reminder list</string>
-    <string name="no_schedule">Schedule on chosen date\nis not available yet.\nOr you are not connected to internet.</string>
+    <string name="no_schedule">Schedule on chosen date\nis not available yet.\nReselect the date.\nOr you are not connected to internet.</string>
 
 </resources>
