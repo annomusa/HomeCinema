@@ -1,5 +1,7 @@
 package com.musa.raffi.hboschedule.schedule;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -21,9 +23,12 @@ import android.view.MenuItem;
 import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.channel.SingletonChannelList;
+import com.musa.raffi.hboschedule.notification.NotificationReceiver;
 import com.musa.raffi.hboschedule.reminder.ReminderActivity;
 import com.musa.raffi.hboschedule.schedule.adapter.ScheduleFragmentPagerAdapter;
 import com.musa.raffi.hboschedule.service.RestApi;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -49,29 +54,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         navigationView.setNavigationItemSelectedListener(this);
 
         configViewAdapter();
     }
 
     private void configViewAdapter() {
-        mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScheduleFragmentPagerAdapter(getFragmentManager(), MainActivity.this, NUM_PAGES);
+        mPager.setOffscreenPageLimit(5);
         mPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mPager);
 
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                String title = SingletonChannelList.getInstance().getChannel(position).getName();
-                getSupportActionBar().setTitle(title);
                 invalidateOptionsMenu();
             }
         });

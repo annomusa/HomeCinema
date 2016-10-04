@@ -1,16 +1,20 @@
 package com.musa.raffi.hboschedule.schedule;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import com.musa.raffi.hboschedule.BasePresenterImpl;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 import com.musa.raffi.hboschedule.models.scheduledb.Schedule;
 import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
-import rx.Observer;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-import static android.content.ContentValues.TAG;
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by Asus on 9/24/2016.
@@ -40,6 +44,28 @@ public class SchedulePresenterDb extends BasePresenterImpl implements Observer<C
         mInterface.dbScheduleList(cursor);
     }
 
+    private Observable<Cursor> getCursor(String channelReq, String dateReq) {
+        return mDataManager.getScheduleRx(channelReq, dateReq);
+    }
+
+    Calendar getCalender(int id) {
+        Calendar result = Calendar.getInstance();
+        Cursor c = mDataManager.getScheduleWithId(id);
+        String dateString = c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE)) +
+                " " + c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        result.setTime(date);
+        return result;
+    }
+
     void setScheduleToRemind(int id){
         mDataManager.setScheduleToRemind(id);
     }
@@ -48,9 +74,9 @@ public class SchedulePresenterDb extends BasePresenterImpl implements Observer<C
         mDataManager.unsetScheduleToRemind(id);
     }
 
-    void fetchSchedulesDb(){
+    void fetchSchedulesDb(String channelReq, String dateReq){
         unSubscribeAll();
-        subscribe(mInterface.getCursor(), SchedulePresenterDb.this);
+        subscribe(getCursor(channelReq, dateReq), SchedulePresenterDb.this);
     }
 
     void addSchedulesToDb(ScheduleList scheduleList){

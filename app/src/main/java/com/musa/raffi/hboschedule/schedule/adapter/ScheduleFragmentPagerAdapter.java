@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.musa.raffi.hboschedule.schedule.PageFragment;
 
@@ -11,7 +12,7 @@ import com.musa.raffi.hboschedule.schedule.PageFragment;
  * Created by Asus on 9/8/2016.
  */
 
-public class ScheduleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ScheduleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private String tabTitles[] = new String[] { "HBO HD", "HBO Sign", "HBO Fam", "HBO HITS", "Cinemax" };
     private Context context;
     int mTotalPage;

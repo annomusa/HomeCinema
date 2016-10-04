@@ -24,6 +24,4 @@ public interface ScheduleViewInterface {
     void dbError(String message);
 
     void dbScheduleList(Cursor cursor);
-
-    Observable<Cursor> getCursor();
 }

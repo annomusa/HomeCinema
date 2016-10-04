@@ -11,7 +11,9 @@
         android:id="@+id/relative_layout"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp"
+        android:paddingBottom="0dp"
+        android:clipToPadding="true">
 
 
         <LinearLayout
@@ -43,10 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtAlert"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
-            android:layout_below="@+id/container_date"
-            />
+            android:layout_below="@+id/container_date" />
 
         <FrameLayout
             android:layout_width="match_parent"

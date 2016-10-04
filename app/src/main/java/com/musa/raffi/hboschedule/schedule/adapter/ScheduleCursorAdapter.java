@@ -19,9 +19,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ScheduleCursorAdapter extends CursorAdapter{
-    int mIdSchedule;
-    String time;
-    String title;
+    private int mIdSchedule;
 
     public ScheduleCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
@@ -37,8 +35,8 @@ public class ScheduleCursorAdapter extends CursorAdapter{
         TextView txtTime = (TextView) view.findViewById(R.id.txtTime);
         TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
 
-        time = cursor.getString(cursor.getColumnIndexOrThrow (DataManager.TABLE_ROW_SHOW_TIME));
-        title = cursor.getString(cursor.getColumnIndexOrThrow (DataManager.TABLE_ROW_FILM_NAME));
+        String time = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
+        String title = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME));
         mIdSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
 
         txtTime.setText(time);

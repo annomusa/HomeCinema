@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
+import com.musa.raffi.hboschedule.notification.NewNotificationReceiver;
 import com.musa.raffi.hboschedule.reminder.adapter.ItemAdapter;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     private DataManager dataManager;
     private ReminderPresenter mPresenter;
     private ItemAdapter mAdapter;
+    private NewNotificationReceiver mNotif;
     Calendar calendar;
     String dateNow, timeNow;
 
@@ -46,6 +48,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
         ButterKnife.bind(this);
         dataManager = new DataManager(ReminderActivity.this);
         mPresenter = new ReminderPresenter(this, dataManager);
+        mNotif = new NewNotificationReceiver();
 
         calendar = Calendar.getInstance();
         dateNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -109,6 +112,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
             mPresenter.unSetSchedule(idSchedule);
             mPresenter.fetchReminder();
             mAdapter.notifyDataSetChanged();
+            mNotif.cancelNotification(this, idSchedule);
         });
 
         alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {

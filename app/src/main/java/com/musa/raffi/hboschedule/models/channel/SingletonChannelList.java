@@ -1,7 +1,6 @@
 package com.musa.raffi.hboschedule.models.channel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,7 +8,6 @@ import java.util.List;
  */
 public class SingletonChannelList {
     private List<Channel> channelList;
-    HashMap<String, String> a;
 
     private static SingletonChannelList ourInstance = new SingletonChannelList();
     public static SingletonChannelList getInstance() {

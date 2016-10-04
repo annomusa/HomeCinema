@@ -120,6 +120,14 @@ public class DataManager {
         return Observable.just(c);
     }
 
+    public Cursor getScheduleWithId(int id){
+        String query = "select * from " + TABLE_SCHEDULE + " where " + TABLE_ROW_ID + " = " + id + ";";
+        Log.d(TAG, "getScheduleWithId: " + query);
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        return c;
+    }
+
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper{
         public CustomSQLiteOpenHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);

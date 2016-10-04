@@ -1,5 +1,7 @@
 package com.musa.raffi.hboschedule;
 
+import com.musa.raffi.hboschedule.BasePresenterInterface;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
