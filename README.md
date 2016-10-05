@@ -1,6 +1,6 @@
 # HomeCinema
 
-This application has been uploaded to Play Store with link below :<br>
+This application has been uploaded to Play Store with link below for V5 (1.4):<br>
 https://play.google.com/store/apps/details?id=com.musa.raffi.hboschedule
 <br><br>
 Exploration library with using best pratice applied to this application, you will found these in this project:<br>
