@@ -4,12 +4,24 @@
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_time_header_label.xml"
     },
     {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_year_label_text_view.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_year_label_text_view.xml"
+    },
+    {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_picker_dialog.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_time_picker_dialog.xml"
     },
     {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_header_view.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_date_picker_header_view.xml"
+    },
+    {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_header_view.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_date_picker_header_view.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_title_view.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_time_title_view.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_year_label_text_view.xml",
@@ -28,11 +40,35 @@
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_time_title_view.xml"
     },
     {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_header_label.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_time_header_label.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_done_button.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_done_button.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_dialog.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_date_picker_dialog.xml"
+    },
+    {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_done_button.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_done_button.xml"
     },
     {
         "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_dialog.xml",
         "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\layout\\mdtp_date_picker_dialog.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_picker_dialog.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_time_picker_dialog.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_selected_date.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_date_picker_selected_date.xml"
+    },
+    {
+        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_view_animator.xml",
+        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\layout\\mdtp_date_picker_view_animator.xml"
     }
 ]
