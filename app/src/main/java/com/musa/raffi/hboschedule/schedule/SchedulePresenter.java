@@ -3,6 +3,7 @@ package com.musa.raffi.hboschedule.schedule;
 import com.musa.raffi.hboschedule.BasePresenterImpl;
 import com.musa.raffi.hboschedule.models.schedulepojo.ScheduleList;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 
 /**
@@ -23,7 +24,12 @@ public class SchedulePresenter extends BasePresenterImpl implements Observer<Sch
 
     @Override
     public void onError(Throwable e) {
-        mInterface.jsonError(e.getMessage());
+        e.printStackTrace();
+        if(e instanceof java.net.SocketTimeoutException || e instanceof HttpException){
+            mInterface.jsonError("timeout");
+        } else{
+            mInterface.jsonError(e.getMessage());
+        }
     }
 
     @Override
@@ -35,6 +41,4 @@ public class SchedulePresenter extends BasePresenterImpl implements Observer<Sch
         unSubscribeAll();
         subscribe(mInterface.getSchedule(), SchedulePresenter.this);
     }
-
-
 }

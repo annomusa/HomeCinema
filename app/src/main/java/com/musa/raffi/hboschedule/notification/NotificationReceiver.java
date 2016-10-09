@@ -17,7 +17,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Created by Asus on 9/19/2016.
  */
 
-public class NotificationReceiver extends BroadcastReceiver {
+public class NotificationReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -25,6 +25,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         notifService.putExtra("title", intent.getStringExtra("title"));
         notifService.putExtra("time", intent.getStringExtra("time"));
         notifService.putExtra("channel", intent.getStringExtra("channel"));
-        context.startService(notifService);
+        notifService.putExtra("idSchedule", intent.getIntExtra("idSchedule", 0));
+        startWakefulService(context, notifService);
     }
 }

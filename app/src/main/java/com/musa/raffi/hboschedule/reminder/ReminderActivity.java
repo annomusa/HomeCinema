@@ -3,8 +3,10 @@ package com.musa.raffi.hboschedule.reminder;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 
 import com.musa.raffi.hboschedule.R;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
-import com.musa.raffi.hboschedule.notification.NewNotificationReceiver;
+import com.musa.raffi.hboschedule.notification.NotificationBootReceiver;
 import com.musa.raffi.hboschedule.notification.NotificationReceiver;
 import com.musa.raffi.hboschedule.reminder.adapter.ItemAdapter;
 
@@ -36,26 +38,25 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     private DataManager dataManager;
     private ReminderPresenter mPresenter;
     private ItemAdapter mAdapter;
-    Calendar calendar;
     String dateNow, timeNow;
 
-    @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @Bind(R.id.empty)
-    TextView empty;
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.empty) TextView empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
-        getSupportActionBar().setTitle("Your Schedule Reminder");
+        getSupportActionBar().setTitle(getString(R.string.reminder_title));
         ButterKnife.bind(this);
         dataManager = new DataManager(ReminderActivity.this);
         mPresenter = new ReminderPresenter(this, dataManager);
 
-        calendar = Calendar.getInstance();
-        dateNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        timeNow = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -1);
+
+        dateNow = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+        timeNow = new SimpleDateFormat("HH:mm:ss").format(calendar.getTime());
 
         configView();
 
@@ -74,7 +75,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     protected void onResume() {
         super.onResume();
         mPresenter.onResume();
-        mPresenter.fetchReminder();
+        mPresenter.fetchReminder(dateNow, timeNow);
     }
 
     @Override
@@ -97,11 +98,6 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
     }
 
     @Override
-    public Observable<Cursor> getReminder() {
-        return dataManager.getScheduleRemindRx(dateNow, timeNow);
-    }
-
-    @Override
     public void onClick(int idSchedule, String film, String channel) {
         showDialog(idSchedule, film, channel);
     }
@@ -113,7 +109,7 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
         alertDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
             mPresenter.unSetSchedule(idSchedule);
             mPresenter.unSetSchedule(idSchedule);
-            mPresenter.fetchReminder();
+            mPresenter.fetchReminder(dateNow, timeNow);
             mAdapter.notifyDataSetChanged();
             cancelAlarm(idSchedule);
         });
@@ -131,5 +127,11 @@ public class ReminderActivity extends AppCompatActivity implements ReminderViewI
         PendingIntent cancelIntent = PendingIntent.getBroadcast(this, idSchedule, intent, 0);
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmMgr.cancel(cancelIntent);
+
+        ComponentName receiver = new ComponentName(this, NotificationBootReceiver.class);
+        PackageManager pm = getPackageManager();
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
     }
 }

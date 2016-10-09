@@ -12,5 +12,4 @@ public interface ReminderViewInterface {
     void onCompleted();
     void onError(String message);
     void onReminder(Cursor cursor);
-    Observable<Cursor> getReminder();
 }

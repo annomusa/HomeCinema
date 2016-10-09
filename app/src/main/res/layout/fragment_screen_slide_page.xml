@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:id="@+id/relative_layout"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
         android:paddingBottom="0dp"
-        android:clipToPadding="true">
+        android:clipToPadding="true"
+        android:elevation="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
 
         <LinearLayout
@@ -24,15 +26,15 @@
             android:id="@+id/container_date">
 
             <TextView
-                android:text="Wed, 7th Sept 2016"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDate"
                 android:textStyle="normal|bold"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:text="Date" />
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_date_range_black_24dp"
                 android:id="@+id/imageButton"
@@ -46,30 +48,33 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtAlert"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/container_date" />
 
-        <FrameLayout
+        <TextView android:id="@+id/empty_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="?android:textColorSecondary" />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:text="@string/refresh_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_schedule"
+            android:layout_centerHorizontal="true" />
+
+        <ListView
+            android:id="@+id/list_schedule"
+            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/txtAlert">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/list_schedule"
-                android:scrollbars="none"/>
-
-            <TextView android:id="@+id/empty_schedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="32dp"
-                android:text="@string/no_schedule"
-                android:textColor="?android:textColorSecondary" />
-        </FrameLayout>
-
-</RelativeLayout>
+            android:layout_height="wrap_content"
+            android:textColor="?android:textColorSecondary"
+            android:layout_below="@+id/txtAlert" />
+    </RelativeLayout>
 
 <!--</ScrollView>-->

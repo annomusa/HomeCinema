@@ -1,5 +1,6 @@
 package com.musa.raffi.hboschedule.schedule;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.musa.raffi.hboschedule.BasePresenterImpl;
@@ -12,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import rx.Observable;
 import rx.Observer;
@@ -24,9 +26,9 @@ public class SchedulePresenterDb extends BasePresenterImpl implements Observer<C
     private ScheduleViewInterface mInterface;
     private DataManager mDataManager;
 
-    SchedulePresenterDb(ScheduleViewInterface mInterface, DataManager dataManager) {
+    SchedulePresenterDb(ScheduleViewInterface mInterface, Context ctx) {
         this.mInterface = mInterface;
-        mDataManager = dataManager;
+        mDataManager = new DataManager(ctx);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class SchedulePresenterDb extends BasePresenterImpl implements Observer<C
         String dateString = c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE)) +
                 " " + c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
 
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         Date date = null;
         try {
             date = format.parse(dateString);

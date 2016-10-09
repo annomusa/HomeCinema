@@ -1,9 +1,5 @@
 package com.musa.raffi.hboschedule.schedule;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -16,21 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.musa.raffi.hboschedule.Application.App;
 import com.musa.raffi.hboschedule.R;
-import com.musa.raffi.hboschedule.models.channel.SingletonChannelList;
-import com.musa.raffi.hboschedule.notification.NotificationReceiver;
 import com.musa.raffi.hboschedule.reminder.ReminderActivity;
 import com.musa.raffi.hboschedule.schedule.adapter.ScheduleFragmentPagerAdapter;
-import com.musa.raffi.hboschedule.service.RestApi;
-
-import java.util.Calendar;
-
-import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mPager.setOffscreenPageLimit(5);
         mPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mPager);
-
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {

@@ -8,13 +8,15 @@
         android:id="@+id/txtTime"
         android:layout_width="0dp"
         android:layout_weight=".35"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/txtTitle"
         android:layout_weight=".65"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
 </LinearLayout>

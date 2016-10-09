@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.musa.raffi.hboschedule.R;
+import com.musa.raffi.hboschedule.Utility;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 import com.musa.raffi.hboschedule.schedule.PageFragment;
 
@@ -64,7 +65,7 @@ public class ItemAdapter extends RecyclerViewCursorAdapter<ItemAdapter.ItemViewH
             film = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME));
             idSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
 
-            dateReq = PageFragment.generalizeDateToShow(dateReq);
+            dateReq = Utility.generalizeDateToShow(dateReq);
 
             mChannel.setText(channel);
             mTime.setText(time + dateReq);

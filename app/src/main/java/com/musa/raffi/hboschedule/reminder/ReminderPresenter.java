@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.musa.raffi.hboschedule.BasePresenterImpl;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 
+import rx.Observable;
 import rx.Observer;
 
 /**
@@ -35,9 +36,13 @@ public class ReminderPresenter extends BasePresenterImpl implements Observer<Cur
         mInterface.onReminder(cursor);
     }
 
-    public void fetchReminder(){
+    public void fetchReminder(String dateNow, String timeNow){
         unSubscribeAll();
-        subscribe(mInterface.getReminder(), ReminderPresenter.this);
+        subscribe(getReminderDb(dateNow, timeNow), ReminderPresenter.this);
+    }
+
+    private Observable<Cursor> getReminderDb(String dateNow, String timeNow){
+        return mDataManager.getScheduleRemindRx(dateNow, timeNow);
     }
 
     public void unSetSchedule(int id){

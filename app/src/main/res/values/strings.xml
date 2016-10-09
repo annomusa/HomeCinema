@@ -19,10 +19,18 @@
     <string name="action_next">Next</string>
     <string name="action_finish">Finish</string>
     <string name="action_settings">Settings</string>
+    <string name="refresh_connection">Refresh</string>
 
     <!-- Other Strings-->
-    <string name="alert">Schedule may change without notice.\nTap item to make an action.</string>
+    <string name="alert">Schedule may change without notice.\n</string>
     <string name="no_reminder">Tap on schedule to add reminder list</string>
     <string name="no_schedule">Schedule on chosen date\nis not available yet.\nReselect the date.\nOr you are not connected to internet.</string>
-
+    <string name="added_schedule">Schedule added to reminder list</string>
+    <string name="added_schedule_fail">Schedule have been passed</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="reminder_title">Your Schedule Reminder</string>
+    <string name="schedule_not_available">Schedule on chosen date\nis not available yet.\nReselect the date.</string>
+    <string name="timeout">Request timeout</string>
+    <string name="offline_mode">Your device are not connected to internet.</string>
+    <string name="fetching_schedule">Fetching schedule . . .</string>
 </resources>
