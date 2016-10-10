@@ -80,6 +80,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     private String mChannelReq;
     View.OnClickListener mOnClickListener;
     public static final String ARG_PAGE = "ARG_PAGE";
+    private Context mContext;
     private boolean mIsVisible;
 
     public static PageFragment newInstance(int page) {
@@ -111,12 +112,11 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         super.onCreate(savedInstanceState);
         App.getApiComponent(getActivity()).inject(this);
 
-        mPresenterDb = new SchedulePresenterDb(this, getActivity().getApplicationContext());
-        mPresenterDb.onCreate();
 
+        mContext = getActivity().getApplicationContext();
         mPageNumber = getArguments().getInt(ARG_PAGE);
         mChannelReq = SingletonChannelList.getInstance().getChannel(mPageNumber).getName();
-        mAnimFlash = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.flash);
+        mAnimFlash = AnimationUtils.loadAnimation(mContext, R.anim.flash);
         mAnimFlash.setDuration(1000);
         Log.d(TAG, "onCreate: PageFragment " + mChannelReq);
         mDateReq = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(new Date());
@@ -147,10 +147,20 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void onResume() {
         super.onResume();
+        mPresenterDb = new SchedulePresenterDb(this, mContext);
+        mPresenterDb.onCreate();
+
         if(mIsVisible){
             showFetchSchedule();
             retrieveListDb();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenterDb.onDestroy();
+        mPresenterDb = null;
     }
 
     void retrieveListDb(){
@@ -323,7 +333,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     }
 
     private void setAlarm(int idSchedule, String title, String time, String channel, Calendar calendar){
-        Intent notifIntent = new Intent(getActivity().getApplicationContext(), NotificationReceiver.class);
+        Intent notifIntent = new Intent(mContext, NotificationReceiver.class);
         notifIntent.putExtra("title", title);
         notifIntent.putExtra("time", time);
         notifIntent.putExtra("channel", channel);
@@ -332,21 +342,21 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
 
-        ComponentName receiver = new ComponentName(getActivity().getApplicationContext(), NotificationBootReceiver.class);
-        PackageManager pm = getActivity().getApplicationContext().getPackageManager();
+        ComponentName receiver = new ComponentName(mContext, NotificationBootReceiver.class);
+        PackageManager pm = mContext.getPackageManager();
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
     }
 
     private void cancelAlarm(int idSchedule) {
-        Intent intent = new Intent(getActivity().getApplicationContext(), NotificationReceiver.class);
+        Intent intent = new Intent(mContext, NotificationReceiver.class);
         PendingIntent cancelIntent = PendingIntent.getBroadcast(getActivity(), idSchedule, intent, 0);
         AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmMgr.cancel(cancelIntent);
 
-        ComponentName receiver = new ComponentName(getActivity().getApplicationContext(), NotificationBootReceiver.class);
-        PackageManager pm = getActivity().getApplicationContext().getPackageManager();
+        ComponentName receiver = new ComponentName(mContext, NotificationBootReceiver.class);
+        PackageManager pm = mContext.getPackageManager();
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
