@@ -1,14 +1,15 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Film Schedule Monitoring</string>
-
     <string name="developer">Fire House</string>
 
     <!-- Titles -->
     <string name="title_screen_slide">Screen Slide</string>
-    <string name="schedule">Schedule</string>
+    <string name="schedule">Channel Schedule</string>
     <string name="reminder">Reminder</string>
     <string name="settings">Settings</string>
     <string name="buttonDate">Change Date</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="reminder_title">Your Schedule Reminder</string>
 
     <!-- Navigation -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -27,10 +28,20 @@
     <string name="no_schedule">Schedule on chosen date\nis not available yet.\nReselect the date.\nOr you are not connected to internet.</string>
     <string name="added_schedule">Schedule added to reminder list</string>
     <string name="added_schedule_fail">Schedule have been passed</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="reminder_title">Your Schedule Reminder</string>
     <string name="schedule_not_available">Schedule on chosen date\nis not available yet.\nReselect the date.</string>
     <string name="timeout">Request timeout</string>
     <string name="offline_mode">Your device are not connected to internet.</string>
     <string name="fetching_schedule">Fetching schedule . . .</string>
+
+    <!-- Settings -->
+    <string name="settings_notification">Notification Setting</string>
+    <string name="settings_time_remind_title">Remind me before show time</string>
+    <string name="settings_time_remind_summary">Choose when the notification will alert you</string>
+    <string name="settings_repeat_title">Enable notification to repeat</string>
+    <string name="settings_repeat_summary">Repeat notification each 1 minute</string>
+    <string name="settings_sound_title">Enable sound for alert</string>
+    <string name="settings_sound_summary">Notification will use your default sound</string>
+    <string name="settings_vibrate_title">Enable vibrate for alert</string>
+
+
 </resources>

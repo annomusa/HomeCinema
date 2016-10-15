@@ -251,7 +251,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
     @Override
     public void dbScheduleList(Cursor cursor) {
         if(cursor.getCount() == 0){
-            if(isInternetAvailable()){
+            if(Utility.isInternetAvailable(mContext)){
                 Log.d(TAG, "dbScheduleList: connected");
                 retrieveListJson();
             } else {
@@ -299,7 +299,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
             if(currentTime.before(calendar)){
                 mPresenterDb.setScheduleToRemind(idSchedule);
                 showSnackBar(getString(R.string.added_schedule), true);
-                setAlarm(idSchedule, title, time, channel, calendar);
+                NotificationReceiver.setNotification(idSchedule, title, time, channel, calendar, getActivity());
             } else {
                 showSnackBar(getString(R.string.added_schedule_fail), false);
             }
@@ -307,7 +307,7 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
 
         mOnClickListener = v -> {
             mPresenterDb.unsetScheduleToRemind(idSchedule);
-            cancelAlarm(idSchedule);
+            NotificationReceiver.cancelNotification(idSchedule, mContext);
         };
 
         alertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
@@ -330,42 +330,5 @@ public class PageFragment extends Fragment implements ScheduleViewInterface, Dat
         TextView snackText = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
         snackText.setTextColor(Color.YELLOW);
         snackbar.show();
-    }
-
-    private void setAlarm(int idSchedule, String title, String time, String channel, Calendar calendar){
-        Intent notifIntent = new Intent(mContext, NotificationReceiver.class);
-        notifIntent.putExtra("title", title);
-        notifIntent.putExtra("time", time);
-        notifIntent.putExtra("channel", channel);
-        notifIntent.putExtra("idSchedule", idSchedule);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), idSchedule, notifIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-
-        ComponentName receiver = new ComponentName(mContext, NotificationBootReceiver.class);
-        PackageManager pm = mContext.getPackageManager();
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-    }
-
-    private void cancelAlarm(int idSchedule) {
-        Intent intent = new Intent(mContext, NotificationReceiver.class);
-        PendingIntent cancelIntent = PendingIntent.getBroadcast(getActivity(), idSchedule, intent, 0);
-        AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.cancel(cancelIntent);
-
-        ComponentName receiver = new ComponentName(mContext, NotificationBootReceiver.class);
-        PackageManager pm = mContext.getPackageManager();
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-    }
-
-    public boolean isInternetAvailable() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

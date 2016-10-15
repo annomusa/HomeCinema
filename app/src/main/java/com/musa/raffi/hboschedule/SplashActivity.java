@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.musa.raffi.hboschedule.schedule.MainActivity;
-
 import static android.content.ContentValues.TAG;
 
 public class SplashActivity extends AppCompatActivity {

@@ -25,10 +25,10 @@ import butterknife.ButterKnife;
 public class ItemAdapter extends RecyclerViewCursorAdapter<ItemAdapter.ItemViewHolder> {
     ReminderClickListener mListener;
 
-    public ItemAdapter(Context context) {
+    public ItemAdapter(Context context, ReminderClickListener reminderClickListener) {
         super(context);
         setupCursorAdapter(null, 0, R.layout.reminder_item, false);
-        mListener = (ReminderClickListener) context;
+        mListener = reminderClickListener;
     }
 
     @Override

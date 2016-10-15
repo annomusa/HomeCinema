@@ -1,8 +1,6 @@
 package com.musa.raffi.hboschedule.dependencies;
 
-import android.app.Fragment;
-
-import com.musa.raffi.hboschedule.schedule.MainActivity;
+import com.musa.raffi.hboschedule.MainActivity;
 import com.musa.raffi.hboschedule.schedule.PageFragment;
 
 import dagger.Component;

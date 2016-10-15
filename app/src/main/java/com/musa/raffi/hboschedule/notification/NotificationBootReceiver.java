@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.widget.Toast;
 
+import com.musa.raffi.hboschedule.Utility;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 
 import java.text.DateFormat;
@@ -40,44 +41,13 @@ public class NotificationBootReceiver extends BroadcastReceiver {
                     String time = c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME));
                     String date = c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_DATE));
                     String channel = c.getString(c.getColumnIndexOrThrow(DataManager.TABLE_ROW_CHANNEL));
-                    setAlarm(context, idSchedule, title, date, time, channel);
+                    Calendar notifTime = Utility.getCalender(date, time);
+                    NotificationReceiver.setNotification(idSchedule, title, time, channel, notifTime, context);
                 }
             }
+
         }
     }
 
-    private void setAlarm(Context context, int idSchedule, String title, String date, String time, String channel){
-        Intent notifIntent = new Intent(context, NotificationReceiver.class);
-        notifIntent.putExtra("title", title);
-        notifIntent.putExtra("time", time);
-        notifIntent.putExtra("channel", channel);
-        notifIntent.putExtra("idSchedule", idSchedule);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, idSchedule, notifIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Calendar notifTime = getCalender(date, time);
-        alarmManager.set(AlarmManager.RTC, notifTime.getTimeInMillis(), pendingIntent);
-
-        ComponentName receiver = new ComponentName(context, NotificationBootReceiver.class);
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-    }
-
-    Calendar getCalender(String date, String time) {
-        Calendar result = Calendar.getInstance();
-        String dateString = date + " " + time;
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-        Date mDate = null;
-        try {
-            mDate = format.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        result.setTime(mDate);
-        return result;
-    }
 }

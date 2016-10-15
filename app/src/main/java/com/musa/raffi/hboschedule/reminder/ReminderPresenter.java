@@ -1,5 +1,6 @@
 package com.musa.raffi.hboschedule.reminder;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.musa.raffi.hboschedule.BasePresenterImpl;
@@ -16,9 +17,9 @@ public class ReminderPresenter extends BasePresenterImpl implements Observer<Cur
     private ReminderViewInterface mInterface;
     private DataManager mDataManager;
 
-    public ReminderPresenter(ReminderViewInterface mInterface, DataManager dataManager) {
+    public ReminderPresenter(ReminderViewInterface mInterface, Context ctx) {
         this.mInterface = mInterface;
-        mDataManager = dataManager;
+        mDataManager = new DataManager(ctx);
     }
 
     @Override
