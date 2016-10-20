@@ -5,7 +5,7 @@
             android:key="remind_time"
             android:title="@string/settings_time_remind_title"
             android:summary="@string/settings_time_remind_summary"
-            android:defaultValue="1"
+            android:defaultValue="4"
             android:entries="@array/remind_time"
             android:entryValues="@array/remind_time_values"/>
 
@@ -16,12 +16,12 @@
             android:defaultValue="false"/>
 
         <CheckBoxPreference
-            android:key="perform_sound"
+            android:key="@string/settings_perform_sound"
             android:title="@string/settings_sound_title"
             android:defaultValue="true"/>
 
         <CheckBoxPreference
-            android:key="perform_vibrate"
+            android:key="@string/settings_perform_vibrate"
             android:title="@string/settings_vibrate_title"
             android:defaultValue="true"/>
 

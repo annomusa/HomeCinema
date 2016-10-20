@@ -4,11 +4,13 @@
         <item>-10 minute</item>
         <item>-7 minute</item>
         <item>-5 minute</item>
+        <item>0 minute</item>
     </string-array>
 
     <string-array name="remind_time_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
 </resources>

@@ -42,6 +42,7 @@
     <string name="settings_sound_title">Enable sound for alert</string>
     <string name="settings_sound_summary">Notification will use your default sound</string>
     <string name="settings_vibrate_title">Enable vibrate for alert</string>
-
+    <string name="settings_perform_vibrate">perform_vibrate</string>
+    <string name="settings_perform_sound">perform_sound</string>
 
 </resources>

@@ -7,9 +7,12 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.IBinder;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -25,7 +28,7 @@ public class NotificationService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
-     * @param name Used to name the worker thread, important only for debugging.
+     * name Used to name the worker thread, important only for debugging.
      */
     public NotificationService() {
         super("Notification Service");
@@ -47,14 +50,18 @@ public class NotificationService extends IntentService {
                 this.getApplicationContext(), 0, mIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isSetVibrate = preferences.getBoolean(getString(R.string.settings_perform_vibrate), true);
+        boolean isSetSound = preferences.getBoolean(getString(R.string.settings_perform_sound), true);
+
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(channel + " at " + time)
                 .setContentText(title)
                 .setContentIntent(pendingIntent)
-                .setVibrate(new long[]{1000, 1000, 1000, 1000})
+                .setVibrate(isSetVibrate ? new long[]{1000, 1000, 1000, 1000} : new long[]{0})
                 .setLights(Color.YELLOW, 1500, 1500)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setSound(isSetSound ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : null)
                 .build();
 
         mManager.notify(idSchedule, notification);
