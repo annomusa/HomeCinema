@@ -1,18 +1,10 @@
 [
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\mdtp_material_button_background.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-v21\\mdtp_material_button_background.xml"
+        "merged": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/res/merged/androidTest/debug/drawable-v21/mdtp_material_button_selected.xml",
+        "source": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/drawable-v21/mdtp_material_button_selected.xml"
     },
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\mdtp_material_button_selected.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-v21\\mdtp_material_button_selected.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\mdtp_material_button_background.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-v21\\mdtp_material_button_background.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\mdtp_material_button_selected.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-v21\\mdtp_material_button_selected.xml"
+        "merged": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/res/merged/androidTest/debug/drawable-v21/mdtp_material_button_background.xml",
+        "source": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/drawable-v21/mdtp_material_button_background.xml"
     }
 ]

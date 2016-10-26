@@ -1,18 +1,10 @@
 [
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\mdtp_done_background_color.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\mdtp_done_background_color.xml"
+        "merged": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/res/merged/androidTest/debug/drawable-land/mdtp_done_background_color.xml",
+        "source": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/drawable-land/mdtp_done_background_color.xml"
     },
     {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\mdtp_done_background_color_dark.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\mdtp_done_background_color_dark.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\mdtp_done_background_color_dark.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\mdtp_done_background_color_dark.xml"
-    },
-    {
-        "merged": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-land\\mdtp_done_background_color.xml",
-        "source": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\drawable-land\\mdtp_done_background_color.xml"
+        "merged": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/res/merged/androidTest/debug/drawable-land/mdtp_done_background_color_dark.xml",
+        "source": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/drawable-land/mdtp_done_background_color_dark.xml"
     }
 ]

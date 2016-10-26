@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-fa\\values-fa.xml",
+        "outputFile": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-fa/values-fa.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 161
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 271
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 382
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 465
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 573
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 693
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 804
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 903
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 991
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 1082
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -201,7 +201,7 @@
                     "endOffset": 1176
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -220,240 +220,7 @@
                     "endOffset": 1276
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1181,
-                        "endColumn": 99,
-                        "endOffset": 1276
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-fa\\values-fa.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 105,
-                    "endColumn": 60,
-                    "endOffset": 161
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 105,
-                        "endColumn": 60,
-                        "endOffset": 161
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 166,
-                    "endColumn": 109,
-                    "endOffset": 271
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 166,
-                        "endColumn": 109,
-                        "endOffset": 271
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 276,
-                    "endColumn": 110,
-                    "endOffset": 382
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 276,
-                        "endColumn": 110,
-                        "endOffset": 382
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 387,
-                    "endColumn": 82,
-                    "endOffset": 465
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 387,
-                        "endColumn": 82,
-                        "endOffset": 465
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 470,
-                    "endColumn": 107,
-                    "endOffset": 573
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 6,
-                        "startColumn": 4,
-                        "startOffset": 470,
-                        "endColumn": 107,
-                        "endOffset": 573
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 578,
-                    "endColumn": 119,
-                    "endOffset": 693
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 578,
-                        "endColumn": 119,
-                        "endOffset": 693
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 698,
-                    "endColumn": 110,
-                    "endOffset": 804
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 698,
-                        "endColumn": 110,
-                        "endOffset": 804
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 809,
-                    "endColumn": 98,
-                    "endOffset": 903
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 9,
-                        "startColumn": 4,
-                        "startOffset": 809,
-                        "endColumn": 98,
-                        "endOffset": 903
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 908,
-                    "endColumn": 87,
-                    "endOffset": 991
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 10,
-                        "startColumn": 4,
-                        "startOffset": 908,
-                        "endColumn": 87,
-                        "endOffset": 991
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 996,
-                    "endColumn": 90,
-                    "endOffset": 1082
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 996,
-                        "endColumn": 90,
-                        "endOffset": 1082
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 1087,
-                    "endColumn": 93,
-                    "endOffset": 1176
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
-                    "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 1087,
-                        "endColumn": 93,
-                        "endOffset": 1176
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1181,
-                    "endColumn": 99,
-                    "endOffset": 1276
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\bundles\\debug\\res\\values-fa\\values-fa.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/bundles/debug/res/values-fa/values-fa.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,

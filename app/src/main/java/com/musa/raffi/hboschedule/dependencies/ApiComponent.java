@@ -11,6 +11,5 @@ import dagger.Component;
 @CustomScope
 @Component(modules = ApiModule.class, dependencies = NetworkComponent.class)
 public interface ApiComponent {
-    MainActivity inject(MainActivity activity);
     PageFragment inject(PageFragment fragment);
 }

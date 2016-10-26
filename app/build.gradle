@@ -32,11 +32,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':library')
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:support-v13:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:support-v13:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:support-vector-drawable:24.2.1'
+    testCompile 'junit:junit:4.12'
 
     // Retrofit
     compile 'com.google.code.gson:gson:2.6.1'
@@ -51,17 +54,19 @@ dependencies {
     // ButterKnife
     compile 'com.jakewharton:butterknife:7.0.1'
 
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:support-vector-drawable:24.2.0'
-    testCompile 'junit:junit:4.12'
-
     // Dagger2
     compile 'com.google.dagger:dagger:2.2'
     apt 'com.google.dagger:dagger-compiler:2.2'
     provided 'javax.annotation:jsr250-api:1.0'
-//    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // Firebase
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+
 }
 
 retrolambda {
     jvmArgs '-noverify'
 }
+
+apply plugin: 'com.google.gms.google-services'

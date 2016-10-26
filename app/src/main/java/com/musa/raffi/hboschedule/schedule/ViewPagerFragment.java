@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Asus on 10/15/2016.
  */
 
-public class PagesFragment extends Fragment {
+public class ViewPagerFragment extends Fragment {
     private static final int NUM_PAGES = 5;
     PagerAdapter mPagerAdapter;
 

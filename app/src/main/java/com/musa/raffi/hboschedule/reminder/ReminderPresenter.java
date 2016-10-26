@@ -3,7 +3,7 @@ package com.musa.raffi.hboschedule.reminder;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.musa.raffi.hboschedule.BasePresenterImpl;
+import com.musa.raffi.hboschedule.base.BasePresenterImpl;
 import com.musa.raffi.hboschedule.models.scheduledb.DataManager;
 
 import rx.Observable;

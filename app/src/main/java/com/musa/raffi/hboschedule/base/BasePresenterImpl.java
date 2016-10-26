@@ -1,6 +1,4 @@
-package com.musa.raffi.hboschedule;
-
-import com.musa.raffi.hboschedule.BasePresenterInterface;
+package com.musa.raffi.hboschedule.base;
 
 import rx.Observable;
 import rx.Observer;
@@ -49,6 +47,7 @@ public abstract class BasePresenterImpl implements BasePresenterInterface {
         }
         return mCompositeSubscription;
     }
+
 
     protected <R> void subscribe(Observable<R> observable, Observer<R> observer){
         Subscription subscription = observable

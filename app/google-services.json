@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "197546143650",
+    "firebase_url": "https://homecinema-de7ba.firebaseio.com",
+    "project_id": "homecinema-de7ba",
+    "storage_bucket": "homecinema-de7ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197546143650:android:ae2917e39f15ad0d",
+        "android_client_info": {
+          "package_name": "com.musa.raffi.hboschedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197546143650-37890vds38sa1o0lrn1arj14nvnp7v24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQAd8tD0ZViT9eYlne0vCgQgXe3PvnEuc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

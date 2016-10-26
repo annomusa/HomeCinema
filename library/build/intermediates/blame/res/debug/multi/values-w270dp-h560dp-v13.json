@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w270dp-h560dp-v13\\values-w270dp-h560dp-v13.xml",
+        "outputFile": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/build/intermediates/incremental/mergeDebugResources/merged.dir/values-w270dp-h560dp-v13/values-w270dp-h560dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,107 +11,7 @@
                     "endOffset": 119
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 824,
-                        "endColumn": 68,
-                        "endOffset": 888
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 124,
-                    "endColumn": 59,
-                    "endOffset": 179
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1014,
-                        "endColumn": 59,
-                        "endOffset": 1069
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 184,
-                    "endColumn": 57,
-                    "endOffset": 237
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 894,
-                        "endColumn": 57,
-                        "endOffset": 947
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 242,
-                    "endColumn": 60,
-                    "endOffset": 298
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1075,
-                        "endColumn": 60,
-                        "endOffset": 1131
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 303,
-                    "endColumn": 59,
-                    "endOffset": 358
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\Git\\HomeCinema\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 953,
-                        "endColumn": 59,
-                        "endOffset": 1008
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w270dp-h560dp-v13\\values-w270dp-h560dp-v13.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 68,
-                    "endOffset": 119
-                },
-                "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/src/main/res/values-w270dp-h560dp/dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -130,7 +30,7 @@
                     "endOffset": 179
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/src/main/res/values-w270dp-h560dp/dimens.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -149,7 +49,7 @@
                     "endOffset": 237
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/src/main/res/values-w270dp-h560dp/dimens.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -168,7 +68,7 @@
                     "endOffset": 298
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/src/main/res/values-w270dp-h560dp/dimens.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -187,7 +87,7 @@
                     "endOffset": 358
                 },
                 "from": {
-                    "file": "D:\\Life\\Programming\\Project Here\\HBOSchedule2\\library\\src\\main\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "file": "/Users/maunorafiq/Documents/Projects/HomeCinema/library/src/main/res/values-w270dp-h560dp/dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,

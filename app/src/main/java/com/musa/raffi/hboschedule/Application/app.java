@@ -23,7 +23,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate: App");
     }
 
     private ApiComponent mApiComponent;
