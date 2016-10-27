@@ -60,9 +60,9 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
 
     // Firebase
+    compile 'com.google.firebase:firebase-database:9.8.0'
     compile 'com.google.firebase:firebase-auth:9.8.0'
     compile 'com.google.android.gms:play-services-auth:9.8.0'
-
 }
 
 retrolambda {

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.musa.raffi.hboschedule.MainActivity;
+import com.musa.raffi.hboschedule.main.MainActivity;
 
 import static android.content.ContentValues.TAG;
 

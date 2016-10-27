@@ -3,7 +3,7 @@ package com.musa.raffi.hboschedule.settings;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import com.musa.raffi.hboschedule.MainActivity;
+import com.musa.raffi.hboschedule.main.MainActivity;
 import com.musa.raffi.hboschedule.R;
 
 /**

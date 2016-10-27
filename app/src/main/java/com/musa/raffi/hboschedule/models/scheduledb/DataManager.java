@@ -121,6 +121,16 @@ public class DataManager {
         return c;
     }
 
+    public Cursor getScheduleRemindFirebase() {
+        String query = "select * from " + TABLE_SCHEDULE +
+                " where " + TABLE_ROW_REMINDER + " = 1 " +
+                "order by " + TABLE_ROW_DATE + ", " + TABLE_ROW_SHOW_TIME;
+        Log.d(TAG, "getScheduleRemind: " + query);
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        return c;
+    }
+
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper{
         public CustomSQLiteOpenHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);

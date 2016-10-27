@@ -34,6 +34,7 @@
     <string name="timeout">Request timeout</string>
     <string name="offline_mode">Your device are not connected to internet.</string>
     <string name="fetching_schedule">Fetching schedule . . .</string>
+    <string name="login_not_logged">Not log in yet!</string>
 
     <!-- Settings -->
     <string name="settings_notification">Notification Setting</string>

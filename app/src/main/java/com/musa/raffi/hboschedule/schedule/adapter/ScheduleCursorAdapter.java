@@ -36,7 +36,6 @@ public class ScheduleCursorAdapter extends CursorAdapter{
 
         String time = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_SHOW_TIME)).substring(0,5) + " WIB";
         String title = cursor.getString(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_FILM_NAME));
-        int mIdSchedule = cursor.getInt(cursor.getColumnIndexOrThrow(DataManager.TABLE_ROW_ID));
 
         txtTime.setText(time);
         txtTitle.setText(title);

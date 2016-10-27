@@ -1,6 +1,5 @@
 package com.musa.raffi.hboschedule.dependencies;
 
-import com.musa.raffi.hboschedule.MainActivity;
 import com.musa.raffi.hboschedule.schedule.PageFragment;
 
 import dagger.Component;
